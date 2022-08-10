@@ -35,7 +35,7 @@ const QuestFilter: FC<questFilterProps> = ({ params, updateParams }) => {
     }
     if (activeFilter === statusType.PASSED) {
       const now = new Date().getTime();
-      filter = `endTime:<${now},workflowEnded:true`;
+      filter = `(endTime:<${now}+endTime:-0),workflowEnded:true`;
     }
     if (activeFilter === statusType.UPCOMING) {
       const now = new Date().getTime();
