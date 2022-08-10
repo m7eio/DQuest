@@ -31,8 +31,6 @@ export const formatWorkflow = async (
         startTime,
         description,
         reviewer,
-        // describe,
-        extInfo,
         transactionHash,
       } = doc?.workflowInfo || doc;
       let statusResult;
@@ -66,7 +64,6 @@ export const formatWorkflow = async (
           submittedCount = submitedList?.data?.totalDocs;
         }
       }
-      const { project, projectName } = extInfo;
       const value = formatBalance(totalRewards.value, totalRewards.decimals);
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -79,7 +76,7 @@ export const formatWorkflow = async (
         quest: name,
         tags,
         deadline: endTimeString,
-        quest_issuer: { issuer, project, projectName },
+        quest_issuer: { issuer, },
         reward: { type, value, unit },
         action: { action: 'view', index, currentWorkflow: workflow },
         workflow,

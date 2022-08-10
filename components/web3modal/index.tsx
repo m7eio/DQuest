@@ -4,6 +4,7 @@ import Rekv from 'rekv';
 import Web3 from 'web3';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { ethers } from 'ethers';
+import { toast } from 'react-toastify';
 
 import { getChainData } from './utils';
 import { IAssetData } from './interface';
@@ -113,7 +114,23 @@ export default function Web3ModalProvider({
 
   const { chainId, web3, address } = value;
 
-  const getNetwork = (cid = chainId) => getChainData(cid)?.network;
+  const getNetwork = (cid = chainId) => {
+    const data = getChainData(cid)?.network;
+
+    if (!data) {
+      toast.warn('Sorry, Please connect to Goerli Testnet.', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+
+    return data;
+  };
 
   const resetApp = async () => {
     // @ts-ignore
@@ -134,7 +151,7 @@ export default function Web3ModalProvider({
         disableInjectedProvider: false,
       },
       {
-        network: getNetwork(5), // optional
+        // network: getNetwork(), // optional
         cacheProvider: true, // optional
         providerOptions: {
           walletconnect: {

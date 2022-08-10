@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 
 import Web3ModalProvider from '../components/web3modal';
+import { NotificationContainer } from '@/components/notification';
 
 import '../styles/globals.css';
 
@@ -20,6 +21,7 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <Web3ModalProvider>
+      <NotificationContainer />
       <Component {...pageProps} />
     </Web3ModalProvider>
   );
