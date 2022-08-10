@@ -382,10 +382,10 @@ function QuestTab({ type }: questProps) {
   }, [type, params]);
 
   useEffect(() => {
-    if (pob && walletAddress) {
+    if (pob) {
       getWorkflow(currentPage);
     }
-  }, [pob, currentPage, type, params, walletAddress]);
+  }, [pob, currentPage, type, params]);
 
   useEffect(() => {
     if (currentWorkflow && !loading && tableDate.dataSource.length > 0) {
@@ -404,7 +404,19 @@ function QuestTab({ type }: questProps) {
         <a target="_blank" className="underline" href="http://pob.work">
           POB Protocol
         </a>{' '}
-        and currently supports Goerli testnet.
+        and currently supports Goerli testnet. If you need $POB faucet, please join{' '}
+        <a className="underline" href="https://discord.gg/wXtj2UuedP">
+          Discord
+        </a>{' '}
+        and switch to
+        <a
+          className="underline"
+          href="https://discord.com/channels/891558483885969408/1000964106737700974"
+        >
+          {' '}
+          POB PROTOCOL - #Faucet
+        </a>{' '}
+        channel.
       </div>
       <div className="flex-horizontal mb-12 justify-between">
         <span className="text-[32px] font-bold text-[#121212]">Quest Board</span>

@@ -2,7 +2,7 @@ module.exports = {
   images: {
     domains: ['static.ghost.org'],
   },
-  swcMinify: true,
+  swcMinify: false,
   async redirects() {
     return [
       {
