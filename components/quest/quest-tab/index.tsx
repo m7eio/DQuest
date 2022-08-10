@@ -327,11 +327,10 @@ function QuestTab({ type }: questProps) {
           setLoading(false);
         }
       } else if (type === QuestTypes.lssued) {
-        quests = await pob.workflow.getIssuerCreatedWorkflows(
-          walletAddress,
+        quests = await pob.workflow.getWorkflows(
           page,
           10,
-          params.filter,
+          `(${params.filter})+(issuer:'${walletAddress?.toLowerCase()}')`,
           params.sort,
         );
         if (quests.status === 'success') {
@@ -352,6 +351,7 @@ function QuestTab({ type }: questProps) {
     }
     setLoading(false);
   };
+
 
   const onClose = () => {
     setVisibleView(false);

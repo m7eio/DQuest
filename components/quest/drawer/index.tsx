@@ -141,7 +141,7 @@ export default function MDrawer({
             <div className="mr-[120px] flex-1 overflow-auto py-2 text-sm">
               {<div className="ql-editor" dangerouslySetInnerHTML={{ __html: result }}></div>}
             </div>
-            {getAddress(currentWorkflow.reviewer) === walletAddress &&
+            {getAddress(currentWorkflow.reviewer) === getAddress(walletAddress as string) &&
               record.status === 'submitted' && (
                 <div className="flex w-[176px] items-center">
                   <PrimaryButton
@@ -160,15 +160,15 @@ export default function MDrawer({
                     loading={rejectLoading}
                     onClick={() => {
                       console.log(rejectLoading, currentWorkflowEnded);
-                      return;
                       onReject(record.taker);
+                      return;
                     }}
                     className={`!hover:bg-[#FFFDF68C]/60 !bg-[#FFFDF68C] !text-[#121212]/60 shadow outline-0`}
                   />
                 </div>
               )}
 
-            {getAddress(currentWorkflow.reviewer) !== walletAddress &&
+            {getAddress(currentWorkflow.reviewer) !== getAddress(walletAddress as string) &&
               ['submitted', 'rejected', 'approved'].indexOf(record.status) > -1 && (
                 <div className="flex w-[90px] items-center">
                   <button
@@ -179,7 +179,7 @@ export default function MDrawer({
                   </button>
                 </div>
               )}
-            {getAddress(currentWorkflow.reviewer) === walletAddress &&
+            {getAddress(currentWorkflow.reviewer) === getAddress(walletAddress as string) &&
               record.status === 'rejected' && (
                 <div className="flex w-[90px] items-center">
                   <button
@@ -271,13 +271,14 @@ export default function MDrawer({
     if (acceptData.toAddress) {
       setAcceptLoading(true);
       try {
-        const data = await pob.task.approve(
+        const tx = await pob.task.approve(
           currentWorkflow.workflow,
           0,
           acceptData.toAddress,
           {},
           value,
         );
+        tx.wait();
         updateStatus();
       } catch (error: any) {
         setAcceptShow(false);
