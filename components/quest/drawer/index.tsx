@@ -291,13 +291,6 @@ export default function MDrawer({
   };
 
   const onClaim = async () => {
-    const now = Date.now();
-    const startDate = new Date(currentWorkflow.date_range.startTimeString).getTime();
-
-    if (now < startDate) {
-      notification.warn('not start');
-      return;
-    }
     if (walletAddress) {
       try {
         setClaimLoading(true);
